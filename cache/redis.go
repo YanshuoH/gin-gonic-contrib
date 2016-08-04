@@ -44,6 +44,7 @@ func NewRedisCache(host string, password string, defaultExpiration time.Duration
 			return nil
 		},
 	}
+
 	return &RedisStore{pool, defaultExpiration}
 }
 
@@ -84,6 +85,10 @@ func (c *RedisStore) Get(key string, ptrValue interface{}) error {
 		return err
 	}
 	return deserialize(item, ptrValue)
+}
+
+func (c *RedisStore) GetPool() *redis.Pool {
+	return c.pool
 }
 
 func exists(conn redis.Conn, key string) bool {

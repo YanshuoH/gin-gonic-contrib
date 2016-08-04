@@ -46,3 +46,11 @@ func TestRedisCache_Replace(t *testing.T) {
 func TestRedisCache_Add(t *testing.T) {
 	testAdd(t, newRedisStore)
 }
+
+func TestRedisStore_GetPool(t *testing.T) {
+	rs := newRedisStore(t, time.Second)
+
+	if res := rs.(*RedisStore).GetPool(); res == nil {
+		t.Error("Could not get pool from redis cache store")
+	}
+}
